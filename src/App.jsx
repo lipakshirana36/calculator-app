@@ -4,8 +4,9 @@ import "./App.css";
 function App() {
   const [input, setInput] = useState("");
 
-  const handleClick = (val) => setInput(input + val);
-  const clear = () => setInput("");
+  const handleClick = (value) => {
+    setInput(input + value);
+  };
 
   const calculate = () => {
     try {
@@ -15,18 +16,31 @@ function App() {
     }
   };
 
+  const clear = () => {
+    setInput("");
+  };
+
   return (
-    <div className="calculator">
-      <h1>Calculator</h1>
-      <input value={input} readOnly />
+    <div className="container">
+      <h1>Calculator 🧮</h1>
+      <input type="text" value={input} readOnly />
 
       <div className="buttons">
-        {["7","8","9","/","4","5","6","*","1","2","3","-","0",".","=","+"].map((b) => (
-          <button key={b} onClick={() => b==="="?calculate():handleClick(b)}>
-            {b}
+        {"789/456*123-0.=+".split("").map((btn) => (
+          <button
+            key={btn}
+            onClick={() =>
+              btn === "="
+                ? calculate()
+                : btn === "C"
+                ? clear()
+                : handleClick(btn)
+            }
+          >
+            {btn}
           </button>
         ))}
-        <button className="clear" onClick={clear}>C</button>
+        <button onClick={clear}>C</button>
       </div>
     </div>
   );
